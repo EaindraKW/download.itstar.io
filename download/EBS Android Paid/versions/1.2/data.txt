@@ -1,6 +1,6 @@
 https://b.itstar.io/ebsandroid.apk
-45
-2024-01-01
+50
+2024-04-01
 - bug fixed 
 - updated feature
 - user friendly

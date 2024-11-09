@@ -30,7 +30,7 @@ namespace download.itstar.io.Data
                 App app = new App();
                 app.Name = Path.GetFileName(directory);
                 app.Logo = Path.Combine(directory, logo);
-                app.Software_about = Path.Combine(directory, about);
+                app.Software_about = string.Join(Environment.NewLine,File.ReadAllLines(Path.Combine(directory, about)));
                 string[] data = GetLatestVersionFolder(Path.Combine(directory, version));
                 if (data.Length >= 3)
                 {
@@ -50,7 +50,8 @@ namespace download.itstar.io.Data
             var bundleDirectory = Path.Combine(Directory.GetCurrentDirectory(), download, bundleName);
             appDetail.Name = bundleName;
             appDetail.Logo = Path.Combine(bundleDirectory, logo);
-            appDetail.Software_about = Path.Combine(bundleDirectory, about);
+           
+            appDetail.Software_about = string.Join(Environment.NewLine,File.ReadAllLines(Path.Combine(bundleDirectory, about)));
             string[] data = GetLatestVersionFolder(Path.Combine(bundleDirectory, version));
             if (data.Length >= 3)
             {
@@ -64,7 +65,10 @@ namespace download.itstar.io.Data
             // appDetail.File_size =GetFileSize(client.GetFileSize("https://b.itstar.io/app/ebs_en_mobile_2_431.apk"));
             appDetail.File_size="";
 
-            var versionFolders = Directory.GetDirectories(Path.Combine(bundleDirectory, version));
+            var versionFolders = Directory.GetDirectories(Path.Combine(bundleDirectory, version)).OrderByDescending(f => Path.GetFileName(f));
+             string? LatestVersion=versionFolders.FirstOrDefault();
+            
+            appDetail.LatestVersionName=Path.GetFileName(LatestVersion);
             var appScreenshoots = Directory.GetFiles(Path.Combine(bundleDirectory, screen_shots));
             foreach (var appScreenshoot in appScreenshoots)
             {
@@ -72,10 +76,10 @@ namespace download.itstar.io.Data
             }
             foreach (var versionName in versionFolders)
             {
-                if (version != versionFolders.OrderByDescending(f => Path.GetFileName(f)).FirstOrDefault())
+                if (versionName !=LatestVersion )
                 {
                     AppOtherVersion appOtherVersion = new AppOtherVersion();
-                    appOtherVersion.versionName = Path.GetFileName(version);
+                    appOtherVersion.versionName = Path.GetFileName(versionName);
                     string[] versionData = File.ReadAllLines(Path.Combine(Path.Combine(versionName),dataFile ));
                     if (versionData.Length >= 3)
                     {

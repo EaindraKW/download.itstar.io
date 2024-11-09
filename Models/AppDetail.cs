@@ -5,6 +5,8 @@ namespace download.itstar.io.Models;
 public class AppDetail : App
 {
     public string? File_size{get;set;}
+
+    public string? LatestVersionName{get;set;}
     public List<AppOtherVersion> OtherVersions{ get; set; }= new List<AppOtherVersion>();
     public List<string> Screen_shot{get;set; }= new List<string>();
 

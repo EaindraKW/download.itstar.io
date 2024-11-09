@@ -1,7 +1,4 @@
 https://b.itstar.io/app/ebs_en_mobile_2_431.apk
 45
 2024-01-01
-- bug fixed 
-- updated feature
-- user friendly
 

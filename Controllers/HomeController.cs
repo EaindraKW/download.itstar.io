@@ -24,8 +24,8 @@ namespace download.itstar.io.Controllers
         public IActionResult Privacy()
         {
            AppData appData = new AppData();
-        //    var app=appData.AvailableBundlesList();
-           //var appDetail= appData.OneBundle("EBS Android Free");
+           var app=appData.AvailableBundlesList();
+           var appDetail= appData.OneBundle("EBS Android Free");
            var versionHistory=appData.GetVersionHistory("EBS Android Free");
            return View();
         }
